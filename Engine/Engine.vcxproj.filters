@@ -6,9 +6,11 @@
     <ClInclude Include="src\Engine\Application.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Engine\EntryPoint.h" />
+    <ClInclude Include="src\Engine\Log.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Test.cpp" />
     <ClCompile Include="src\Engine\Application.cpp" />
+    <ClCompile Include="src\Engine\Log.cpp" />
   </ItemGroup>
 </Project>
