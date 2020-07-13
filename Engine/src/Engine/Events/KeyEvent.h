@@ -41,7 +41,7 @@ namespace Engine {
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(KeyCode keycode)
+		KeyReleasedEvent(int keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
@@ -57,7 +57,7 @@ namespace Engine {
 	class KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(KeyCode keycode)
+		KeyTypedEvent(int keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override

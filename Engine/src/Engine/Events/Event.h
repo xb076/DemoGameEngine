@@ -56,8 +56,8 @@ namespace Engine {
 
 	class EventDispatcher
 	{
-		template<typename T>
-		using EventFn = std::function<bool(T&)>;
+		/*template<typename T>
+		using EventFn = std::function<bool(T&)>;*/
 
 	public:
 		EventDispatcher(Event& event)
@@ -66,23 +66,40 @@ namespace Engine {
 		}
 
 		// F will be deduced by the compiler
-		template<typename T>
-		bool Dispatch(EventFn<T> func)
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;
 		}
+
+		//EventDispatcher(Event& event)
+		//	: m_Event(event)
+		//{
+		//}
+
+		//// F will be deduced by the compiler
+		//template<typename T>
+		//bool Dispatch(EventFn<T> func)
+		//{
+		//	if (m_Event.GetEventType() == T::GetStaticType())
+		//	{
+		//		m_Event.m_Handled = func(*(T*)&m_Event);
+		//		return true;
+		//	}
+		//	return false;
+		//}
 	private:
 		Event& m_Event;
 	};
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
-		return os << e.ToString();
+		return os << e.ToString().c_str();
 	}
 
 }
