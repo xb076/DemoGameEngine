@@ -1,3 +1,6 @@
 [submodule "Engine/vendor/GLFW"]
 	path = Engine/vendor/GLFW
 	url = https://github.com/xb076/glfw
+[submodule "Engine/vendor/imgui"]
+	path = Engine/vendor/imgui
+	url = https://github.com/xb076/imgui
