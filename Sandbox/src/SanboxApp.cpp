@@ -11,7 +11,7 @@ public:
 
 	void OnUpdate() override
 	{
-		LOG_APP_INFO("ExampleLayer::Update");
+		//LOG_APP_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Engine::Event& event) override

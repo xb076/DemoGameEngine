@@ -6,9 +6,6 @@ extern Engine::Application* Engine::CreateApplication();
 
 int main(int argc, char* argv[])
 {
-	/*Sandbox* sandbox = new Sandbox();
-	sandbox->Run();
-	delete sandbox;*/
 	Engine::Log::Init();
 	LOG_CORE_WARN("Initialized Log!");
 	int a = 5;
