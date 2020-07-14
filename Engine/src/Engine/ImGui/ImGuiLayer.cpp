@@ -11,10 +11,7 @@
 
 namespace Engine {
 
-	ImGuiLayer::ImGuiLayer()
-		: Layer("ImGuiLayer")
-	{
-	}
+	ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
 
 	ImGuiLayer::~ImGuiLayer() {}
 

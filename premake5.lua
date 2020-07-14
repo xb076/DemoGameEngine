@@ -1,6 +1,6 @@
 workspace "DemoGameEngine"
 	architecture "x64"
-
+	startproject "Sandbox"
 	configurations
 	{
 		"Debug",
@@ -9,8 +9,6 @@ workspace "DemoGameEngine"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
-
-startproject "Sandbox"
 
 project "DemoGameEngine"
 	location "DemoGameEngine"
@@ -78,7 +76,8 @@ project "Engine"
 		
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox\"")
 		}
 
 	filter "configurations:Debug"

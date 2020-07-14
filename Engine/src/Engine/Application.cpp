@@ -5,6 +5,8 @@
 
 #include "glad/glad.h"
 
+#include "Engine/Input.h"
+
 namespace Engine {
 
 //#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -63,6 +65,9 @@ namespace Engine {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			auto[x, y] = Input::GetMousePosition();
+			LOG_CORE_TRACE("{0}, {1}", x, y);
 
 			m_Window->OnUpdate();
 		}
