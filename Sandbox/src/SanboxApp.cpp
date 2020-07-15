@@ -19,12 +19,12 @@ public:
 			LOG_APP_INFO("Tab Key is pressed!");
 	}
 
-	/*virtual void OnImGuiRender() override
+	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Test");
 		ImGui::Text("Hello World");
 		ImGui::End();
-	}*/
+	}
 
 	void OnEvent(Engine::Event& event) override
 	{
