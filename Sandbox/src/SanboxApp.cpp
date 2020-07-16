@@ -1,5 +1,4 @@
 
-
 #include "Engine.h"
 
 #include "imgui/imgui.h"
@@ -95,7 +94,7 @@ public:
 
 		m_Shader.reset(new Engine::Shader(vertexSrc, fragmentSrc));
 
-		std::string blueShaderVertexSrc = R"(
+		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
@@ -113,20 +112,22 @@ public:
 			}
 		)";
 
-		std::string blueShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
+			
+			uniform vec4 u_Color;
 
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = u_Color;
 			}
 		)";
 
-		m_BlueShader.reset(new Engine::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		m_BlueShader.reset(new Engine::Shader(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 	}
 
 	void OnUpdate(Engine::TimeStep ts) override
@@ -168,12 +169,18 @@ public:
 
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
+		glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
 		for (int i = 0; i < 20; ++i)
 		{
 			for (int j = 0; j < 20; ++j)
 			{
 				glm::vec3 pos(i * 0.11f, j*0.11f, 0.f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				if (i & 0x1)
+					m_BlueShader->UploadUniformFloat4("u_Color", blueColor);
+				else
+					m_BlueShader->UploadUniformFloat4("u_Color", redColor);
 				Engine::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
 			}
 		}
