@@ -12,10 +12,10 @@ namespace Engine {
 		VertexBuffer* ret = nullptr;
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			ENGINE_CORE_ASSERT(false, "RenderAPI::None is currently not supported!");
 			break;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			ret = new OpenGLVertexBuffer(vertices, size);
 			break;
 		default:
@@ -30,10 +30,10 @@ namespace Engine {
 		IndexBuffer* ret = nullptr;
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			ENGINE_CORE_ASSERT(false, "RenderAPI::None is currently not supported!");
 			break;
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			ret = new OpenGLIndexBuffer(indices, size);
 			break;
 		default:
