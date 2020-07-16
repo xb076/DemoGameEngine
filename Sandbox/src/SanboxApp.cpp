@@ -123,25 +123,26 @@ public:
 		)";
 
 		m_BlueShader.reset(new Engine::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
-
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Engine::TimeStep ts) override
 	{
+		//LOG_APP_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliSeconds());
+
 		if (Engine::Input::IsKeyPressed(ENGINE_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * ts.GetSeconds();
 		else if (Engine::Input::IsKeyPressed(ENGINE_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * ts.GetSeconds();
 
 		if (Engine::Input::IsKeyPressed(ENGINE_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * ts.GetSeconds();
 		else if (Engine::Input::IsKeyPressed(ENGINE_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * ts.GetSeconds();
 
 		if (Engine::Input::IsKeyPressed(ENGINE_KEY_A))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts.GetSeconds();
 		else if (Engine::Input::IsKeyPressed(ENGINE_KEY_D))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts.GetSeconds();
 
 		Engine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Engine::RenderCommand::Clear();
@@ -165,16 +166,8 @@ public:
 
 	void OnEvent(Engine::Event& event) override
 	{
-		//Engine::EventDispatcher dispatcher(event);
-		//dispatcher.Dispatch<Engine::KeyPressedEvent>(ENGINE_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
-
+		
 	}
-
-	//bool OnKeyPressedEvent(Engine::KeyPressedEvent& event)
-	//{
-	//	
-	//	return false;
-	//}
 
 private:
 	std::shared_ptr<Engine::Shader> m_Shader;
@@ -185,9 +178,9 @@ private:
 
 	Engine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
+	float m_CameraMoveSpeed = 5.f;
 	float m_CameraRotation = 0.f;
-	float m_CameraRotationSpeed = 1.f;
+	float m_CameraRotationSpeed = 30.f;
 	
 };
 

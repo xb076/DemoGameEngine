@@ -8,10 +8,7 @@
 
 #include "Engine/ImGui/ImGuiLayer.h"
 
-#include "Engine/Renderer/Shader.h"
-#include "Engine/Renderer/Buffer.h"
-#include "Engine/Renderer/VertexArray.h"
-#include "Engine/Renderer/OrthographicCamera.h"
+#include "Engine/Core/TimeStep.h"
 
 namespace Engine {
 
@@ -38,16 +35,12 @@ namespace Engine {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		TimeStep m_Timestep;
+		float m_LastFrameTime = 0.0f;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
-
-		OrthographicCamera m_Camera;
 
 		static Application* s_Instance;
+
 	};
 
 
