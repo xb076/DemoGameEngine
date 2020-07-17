@@ -3,10 +3,10 @@
 
 namespace Engine {
 
-	class TimeStep
+	class Timestep
 	{
 	public:
-		TimeStep(float time = 0.f) :m_Time(time) {}
+		Timestep(float time = 0.f) :m_Time(time) {}
 
 		operator float() const { return m_Time; }
 
