@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Application.h"
 
-#include "Engine/Log.h"
+#include "Log.h"
 #include "Input.h"
 #include "Engine/Renderer/Renderer.h"
 

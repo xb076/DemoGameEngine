@@ -2,8 +2,8 @@
 
 #include "Core.h"
 #include "Window.h"
-#include "Engine/LayerStack.h"
-#include "Events/Event.h"
+#include "LayerStack.h"
+#include "Engine/Events/Event.h"
 #include "Engine/Events/ApplicationEvent.h"
 
 #include "Engine/ImGui/ImGuiLayer.h"
