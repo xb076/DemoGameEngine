@@ -9,6 +9,7 @@ namespace Engine {
 	class Renderer
 	{
 	public:
+		inline static void Init() { RenderCommand::Init(); }
 		static void BeginScene(OrthographicCamera& camera);
 		static void EndScene();
 
