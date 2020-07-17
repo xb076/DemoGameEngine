@@ -1,5 +1,6 @@
 
 #include "Engine.h"
+
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include <imgui/imgui.h>
@@ -22,7 +23,7 @@ public:
 			0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<Engine::VertexBuffer> vertexBuffer;
+		Engine::Ref<Engine::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Engine::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Engine::BufferLayout layout = {
@@ -33,7 +34,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Engine::IndexBuffer> indexBuffer;
+		Engine::Ref<Engine::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Engine::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -46,7 +47,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<Engine::VertexBuffer> squareVB;
+		Engine::Ref<Engine::VertexBuffer> squareVB;
 		squareVB.reset(Engine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
 		squareVB->SetLayout({
@@ -55,7 +56,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Engine::IndexBuffer> squareIB;
+		Engine::Ref<Engine::IndexBuffer> squareIB;
 		squareIB.reset(Engine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -204,11 +205,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Engine::Shader> m_Shader;
-	std::shared_ptr<Engine::VertexArray> m_VertexArray;
+	Engine::Ref<Engine::Shader> m_Shader;
+	Engine::Ref<Engine::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Engine::Shader> m_FlatColorShader;
-	std::shared_ptr<Engine::VertexArray> m_SquareVA;
+	Engine::Ref<Engine::Shader> m_FlatColorShader;
+	Engine::Ref<Engine::VertexArray> m_SquareVA;
 
 	Engine::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
