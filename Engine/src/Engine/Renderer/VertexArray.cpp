@@ -6,16 +6,16 @@
 
 namespace Engine {
 
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
-		VertexArray* ret = nullptr;
+		Ref<VertexArray> ret = nullptr;
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:
 			ENGINE_CORE_ASSERT(false, "RenderAPI::None is currently not supported!");
 			break;
 		case RendererAPI::API::OpenGL:
-			ret = new OpenGLVertexArray();
+			ret = std::make_shared<OpenGLVertexArray>();
 			break;
 		default:
 			ENGINE_CORE_ASSERT(false, "Unkown RenderAPI!");

@@ -2,11 +2,14 @@
 
 #include "Engine/Renderer/Texture.h"
 
+typedef unsigned int GLenum;
+
 namespace Engine {
 
 	class OpenGLTexture2D : public Texture2D
 	{
 	public:
+		OpenGLTexture2D(uint32_t width, uint32_t height);
 		OpenGLTexture2D(const std::string& path);
 		virtual ~OpenGLTexture2D();
 
@@ -20,5 +23,7 @@ namespace Engine {
 		uint32_t m_Width;
 		uint32_t m_Height;
 		uint32_t m_RendererID;
+
+		GLenum m_InternalFormat, m_DataFormat;
 	};
 }

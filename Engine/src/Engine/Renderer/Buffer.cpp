@@ -7,16 +7,28 @@
 
 namespace Engine {
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
 	{
-		VertexBuffer* ret = nullptr;
+		switch (Renderer::GetAPI())
+		{
+		case RendererAPI::API::None:   ENGINE_CORE_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL:  return std::make_shared<OpenGLVertexBuffer>(size);
+		}
+
+		ENGINE_CORE_ASSERT(false, "Unknown RendererAPI!");
+		return nullptr;
+	}
+
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+	{
+		Ref<VertexBuffer> ret = nullptr;
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:
 			ENGINE_CORE_ASSERT(false, "RenderAPI::None is currently not supported!");
 			break;
 		case RendererAPI::API::OpenGL:
-			ret = new OpenGLVertexBuffer(vertices, size);
+			ret = std::make_shared<OpenGLVertexBuffer>(vertices, size);
 			break;
 		default:
 			ENGINE_CORE_ASSERT(false, "Unkown RenderAPI!");
@@ -25,16 +37,16 @@ namespace Engine {
 		return ret;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
-		IndexBuffer* ret = nullptr;
+		Ref<IndexBuffer> ret = nullptr;
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:
 			ENGINE_CORE_ASSERT(false, "RenderAPI::None is currently not supported!");
 			break;
 		case RendererAPI::API::OpenGL:
-			ret = new OpenGLIndexBuffer(indices, size);
+			ret = std::make_shared<OpenGLIndexBuffer>(indices, size);
 			break;
 		default:
 			ENGINE_CORE_ASSERT(false, "Unkown RenderAPI!");
