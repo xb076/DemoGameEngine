@@ -50,6 +50,8 @@ namespace Engine {
 
 	void Renderer2D::Init()
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DData();
 
 		s_Data->QuadVertexArray = Engine::VertexArray::Create();
@@ -142,6 +144,8 @@ namespace Engine {
 
 	void Renderer2D::Shutdown()
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		delete s_Data;
 		s_Data = nullptr;
 
@@ -150,6 +154,8 @@ namespace Engine {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		//s_Data->FlatColorShader->Bind();
 		//s_Data->FlatColorShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 
@@ -167,6 +173,8 @@ namespace Engine {
 
 	void Renderer2D::EndScene()
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		/*uint32_t dataSize = (uint32_t)( (uint8_t*)s_Data.QuadVertexBufferPtr - (uint8_t*)s_Data.QuadVertexBufferBase );
 		s_Data.QuadVertexBuffer->SetData(s_Data.QuadVertexBufferBase, dataSize);
 
@@ -204,6 +212,8 @@ namespace Engine {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		//s_Data->FlatColorShader->Bind();
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
@@ -247,6 +257,8 @@ namespace Engine {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		//s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		texture->Bind();

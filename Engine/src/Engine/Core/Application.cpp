@@ -13,6 +13,8 @@ namespace Engine {
 
 	Application::Application()
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		ENGINE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = Scope<Window>(Window::Create());
@@ -33,6 +35,8 @@ namespace Engine {
 
 	void Application::OnEvent(Event& e)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(ENGINE_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(ENGINE_BIND_EVENT_FN(Application::OnWindowResize));
@@ -46,6 +50,8 @@ namespace Engine {
 
 	void Application::PushLayer(Layer* layer)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		if (nullptr != layer) { 
 			m_LayerStack.PushLayer(layer);
 			layer->OnAttach();
@@ -53,6 +59,8 @@ namespace Engine {
 	}
 	void Application::PushOverlay(Layer* layer)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		if (nullptr != layer) { 
 			m_LayerStack.PushOverlay(layer);
 			layer->OnAttach();
@@ -61,24 +69,34 @@ namespace Engine {
 
 	void Application::Run()
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			ENGINE_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
+				{
+					ENGINE_PROFILE_SCOPE("LayerStack OnUpdate");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
+
+				m_ImGuiLayer->Begin();
+				{
+					ENGINE_PROFILE_SCOPE("LayerStack ImGuiRender");
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+
+				m_ImGuiLayer->End();
 			}
-
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
-
-
 
 			m_Window->OnUpdate();
 		}
@@ -93,6 +111,8 @@ namespace Engine {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		ENGINE_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;
