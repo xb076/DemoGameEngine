@@ -22,10 +22,10 @@ private:
 	Engine::Ref<Engine::Shader> m_Shader;
 	Engine::Ref<Engine::VertexArray> m_VertexArray;
 
-	Engine::Ref<Engine::Shader> m_FlatColorShader;
 	Engine::Ref<Engine::VertexArray> m_SquareVA;
-
-	Engine::Ref<Engine::Texture2D> m_Texture, m_LogoTexture;
+	Engine::Ref<Engine::Shader> m_FlatColorShader;
+	
+	Engine::Ref<Engine::Texture2D> m_CheckerboardTexture, m_LogoTexture;
 
 	glm::vec4 m_SquareColor = { .2f, .3f, .8f, 1.0f };
 };
