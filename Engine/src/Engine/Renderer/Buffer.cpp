@@ -37,7 +37,7 @@ namespace Engine {
 		return ret;
 	}
 
-	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		Ref<IndexBuffer> ret = nullptr;
 		switch (Renderer::GetAPI())
@@ -46,7 +46,7 @@ namespace Engine {
 			ENGINE_CORE_ASSERT(false, "RenderAPI::None is currently not supported!");
 			break;
 		case RendererAPI::API::OpenGL:
-			ret = std::make_shared<OpenGLIndexBuffer>(indices, size);
+			ret = std::make_shared<OpenGLIndexBuffer>(indices, count);
 			break;
 		default:
 			ENGINE_CORE_ASSERT(false, "Unkown RenderAPI!");
