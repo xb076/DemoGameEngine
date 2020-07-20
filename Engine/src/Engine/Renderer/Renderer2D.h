@@ -37,7 +37,7 @@ namespace Engine {
 			uint32_t GetTotalIndexCount() { return QuadCount * 6; }
 		};
 		static void ResetStats();
-		//static Statistics GetStats();
+		static Statistics GetStats();
 	private:
 		static void FlushAndReset();
 	};
