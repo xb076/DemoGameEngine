@@ -444,7 +444,7 @@ namespace Engine {
 		const float tilingFactor = 1.f;
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.f,0.f,1.f })
+			* glm::rotate(glm::mat4(1.0f), rotation, { 0.f,0.f,1.f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.f });
 
 
@@ -537,7 +537,7 @@ namespace Engine {
 		}
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.f), position)
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.f,0.f,1.f })
+			* glm::rotate(glm::mat4(1.0f), rotation, { 0.f,0.f,1.f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.f });
 
 		s_Data.QuadVertexBufferPtr->Position = transform * s_Data.QuadVertexPositions[0];

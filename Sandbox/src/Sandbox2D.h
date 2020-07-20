@@ -2,6 +2,9 @@
 
 #include "Engine.h"
 
+#include "ParticleSystem.h"
+
+
 class Sandbox2D : public Engine::Layer
 {
 public:
@@ -28,6 +31,9 @@ private:
 	Engine::Ref<Engine::Texture2D> m_CheckerboardTexture, m_LogoTexture;
 
 	glm::vec4 m_SquareColor = { .2f, .3f, .8f, 1.0f };
+
+	ParticleSystem m_ParticleSystem;
+	ParticleProps m_Particle;
 
 
 	struct ProfileResult
