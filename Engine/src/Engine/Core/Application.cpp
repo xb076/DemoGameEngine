@@ -67,6 +67,11 @@ namespace Engine {
 		}
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::Run()
 	{
 		ENGINE_PROFILE_FUNCTION();
