@@ -57,13 +57,19 @@ void Sandbox2D::OnAttach()
 
 	m_CheckerboardTexture = Engine::Texture2D::Create("assets/textures/Checkerboard.png");
 
-	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+	/*m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
 	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
 	m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
 	m_Particle.LifeTime = 5.0f;
 	m_Particle.Velocity = { 0.0f, 0.0f };
 	m_Particle.VelocityVariation = { 3.0f, 1.0f };
-	m_Particle.Position = { 0.0f, 0.0f };
+	m_Particle.Position = { 0.0f, 0.0f };*/
+
+	Engine::FramebufferSpecification fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	m_Framebuffer = Engine::Framebuffer::Create(fbSpec);
+
 }
 
 void Sandbox2D::OnDetach()
@@ -79,6 +85,8 @@ void Sandbox2D::OnUpdate(Engine::Timestep ts)
 	
 	{
 		ENGINE_PROFILE_SCOPE("Renderer Prep");
+		m_Framebuffer->Bind();
+
 		Engine::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Engine::RenderCommand::Clear();
 	}
@@ -108,9 +116,10 @@ void Sandbox2D::OnUpdate(Engine::Timestep ts)
 		}
 
 		Engine::Renderer2D::EndScene();
+		m_Framebuffer->Unbind();
 	}
 
-	if (Engine::Input::IsMouseButtonPressed((int)ENGINE_MOUSE_BUTTON_LEFT))
+	/*if (Engine::Input::IsMouseButtonPressed((int)ENGINE_MOUSE_BUTTON_LEFT))
 	{
 		auto [x, y] = Engine::Input::GetMousePosition();
 		auto width = Engine::Application::Get().GetWindow().GetWidth();
@@ -125,7 +134,7 @@ void Sandbox2D::OnUpdate(Engine::Timestep ts)
 			m_ParticleSystem.Emit(m_Particle);
 	}
 	m_ParticleSystem.OnUpdate(ts);
-	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+	m_ParticleSystem.OnRender(m_CameraController.GetCamera());*/
 
 }
 
@@ -217,8 +226,10 @@ void Sandbox2D::OnImGuiRender()
 
 	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
 
-	uint32_t textureID = m_CheckerboardTexture->GetRendererID();
-	ImGui::Image((void*)textureID, ImVec2{128.f, 128.f});
+	//uint32_t textureID = m_CheckerboardTexture->GetRendererID();
+	//ImGui::Image((void*)textureID, ImVec2{128.f, 128.f});
+	uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+	ImGui::Image((void*)textureID, ImVec2{320.f, 180.f});
 	ImGui::End();
 
 
