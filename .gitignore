@@ -5,6 +5,7 @@
 # Files
 *.user
 *imgui.ini
+**.json
 
 # Visual Studio
 .vs/

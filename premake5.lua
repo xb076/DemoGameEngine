@@ -1,6 +1,6 @@
 workspace "DemoGameEngine"
 	architecture "x64"
-	startproject "Sandbox"
+	startproject "Engine-Editor"
 	configurations
 	{
 		"Debug",
@@ -153,4 +153,55 @@ project "Sandbox"
 		runtime "Release"
 		optimize "on"
 
+project "Engine-Editor"
+	location "Engine-Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Engine/vendor/spdlog/include",
+		"Engine/src",
+		"Engine/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Engine"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		
+		defines
+		{
+			"ENGINE_PLATFORM_WINDOWS"
+		}
+		
+	filter "configurations:Debug"
+		defines "ENGINE_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "ENGINE_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "ENGINE_DIST"
+		runtime "Release"
+		optimize "on"
 

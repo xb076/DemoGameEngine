@@ -11,15 +11,14 @@ namespace Engine {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{
 		ENGINE_PROFILE_FUNCTION();
 
 		ENGINE_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_Window = Scope<Window>(Window::Create());
+		m_Window = Scope<Window>(Window::Create(WindowProps(name)));
 		m_Window->SetEventCallback(ENGINE_BIND_EVENT_FN(Application::OnEvent));
-
 
 		Renderer::Init();
 
